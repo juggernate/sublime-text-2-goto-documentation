@@ -106,9 +106,9 @@ class GotoDocumentationCommand(sublime_plugin.TextCommand):
         """Not trying to be full on intellisense here, but want to make opening a
         browser to a docs.python.org search a last resort
         """
-        if not re.match(r'\s', keyword):
-            self.run_command(["python", "-m", "pydoc", keyword])
-            return
+        # if not re.match(r'\s', keyword):
+        #     self.run_command(["python", "-m", "pydoc", keyword])
+        #     return
 
         open_url("http://docs.python.org/search.html?q=%s" % keyword)
 
@@ -139,6 +139,10 @@ class GotoDocumentationCommand(sublime_plugin.TextCommand):
     def erlang_doc(self, keyword, scope):
         otp_version = self.view.settings().get("otp_version", "R16B03")
         url         = 'http://erldocs.com/%(otp_version)s/?search=%(keyword)s' % {'otp_version': otp_version,  'keyword': keyword}
+        open_url(url)
+
+    def mel_doc(self, keyword, scope):
+        url = 'http://download.autodesk.com/global/docs/maya2014/en_us/Commands/{0}.html'.format(keyword)
         open_url(url)
 
     def run_command(self, command, callback=None, **kwargs):
